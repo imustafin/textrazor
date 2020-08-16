@@ -34,7 +34,13 @@ module TextRazor
         api_key: api_key
       }.merge(request_options)
 
-      Response.new(Request.post(text, options))
+      begin
+        response = Request.post(text, options)
+      rescue ::RestClient::ExceptionWithResponse => e
+        response = e.response
+      end
+
+      Response.new(response)
     end
 
     def self.topics(api_key, text, options = {})

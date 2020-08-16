@@ -19,10 +19,14 @@ module TextRazor
     }
 
     def self.post(text, options)
-      ::RestClient.post(
+      ans = ::RestClient.post(
         TextRazor.configuration.url,
         build_query(text, options)
       )
+
+      pp ans
+
+      ans
     end
 
     private
